@@ -4,12 +4,12 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 
 class PlayState extends FlxState {
-  override public function create(): Void {
-    super.create();
+  override public function create():Void {
     add(new FlxText(10, 10, 100, "Hello, World!"));
+    super.create();
   }
 
-  override public function update(elapsed: Float): Void {
+  override public function update(elapsed:Float):Void {
     super.update(elapsed);
   }
 }
