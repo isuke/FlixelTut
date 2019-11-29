@@ -1,16 +1,24 @@
 package;
 
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.math.FlxPoint;
-import flixel.util.FlxColor;
+// import flixel.util.FlxColor;
 
 class Player extends FlxSprite {
   public var speed:Float = 200;
 
   public function new(?X:Float = 0, ?Y:Float = 0) {
     super(X, Y);
-    makeGraphic(16, 16, FlxColor.BLUE);
+
+    // makeGraphic(16, 16, FlxColor.BLUE);
+    loadGraphic(AssetPaths.player__png, true, 16, 16);
+    setFacingFlip(FlxObject.LEFT, false, false);
+    setFacingFlip(FlxObject.RIGHT, true, false);
+    animation.add("lr", [3, 4, 3, 5], 6, false);
+    animation.add("u" , [6, 7, 6, 8], 6, false);
+    animation.add("d" , [0, 1, 0, 2], 6, false);
 
     drag.x = drag.y = 1600;
   }
@@ -38,20 +46,36 @@ class Player extends FlxSprite {
       var mA:Float = 0;
       if (_up) {
         mA = -90;
+        facing = FlxObject.UP;
         if      (_left) mA -= 45;
         else if (_right) mA += 45;
       } else if (_down) {
         mA = 90;
+        facing = FlxObject.DOWN;
              if (_left)  mA += 45;
         else if (_right) mA -= 45;
       } else if (_left) {
         mA = 180;
+        facing = FlxObject.LEFT;
       } else if (_right) {
         mA = 0;
+        facing = FlxObject.RIGHT;
       }
 
       velocity.set(speed, 0);
       velocity.rotate(FlxPoint.weak(0, 0), mA);
+
+      // if the player is moving (velocity is not 0 for either axis), we need to change the animation to match their facing
+      if ((velocity.x != 0 || velocity.y != 0) && touching == FlxObject.NONE) {
+        switch (facing) {
+          case FlxObject.LEFT, FlxObject.RIGHT:
+            animation.play("lr");
+          case FlxObject.UP:
+            animation.play("u");
+          case FlxObject.DOWN:
+            animation.play("d");
+        }
+      }
     }
   }
 }
