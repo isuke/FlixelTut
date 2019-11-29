@@ -1,0 +1,26 @@
+:chapter-label:
+:icons: font
+:lang: en
+:sectanchors:
+:sectlinks:
+:sectnums:
+:sectnumlevels: 1
+:source-highlighter: highlightjs
+:toc: preamble
+:toclevels: 1
+
+= FlixelTut
+
+It is link:https://haxeflixel.com/documentation/tutorial/[HaxeFlixl Tutorial].
+
+== Getting Started
+
+```sh
+$ haxelib install lime
+$ haxelib install openfl
+$ haxelib install flixel
+
+$ haxelib install flixel-addons
+```
+
+Run `Build + Debug` on VSCode.
